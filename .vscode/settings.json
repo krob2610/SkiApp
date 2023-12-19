@@ -1,0 +1,39 @@
+{
+    "python.formatting.provider": "black",
+    "black-formatter.args": [
+        "--line-length",
+        "88"
+    ],
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+    },
+    "isort.args": [
+        "--profile",
+        "black"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.flake8Enabled": true,
+    "flake8.args": [
+        "--max-line-length=88"
+    ],
+    "python.linting.flake8CatergorySeverity.E": "Warning",
+    "python.linting.flake8CatergorySeverity.F": "Warning",
+    "python.linting.flake8CatergorySeverity.W": "Warning",
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.inlayHints.enabled": "on",
+    "python.analysus.typeCheckingMode": "basic",
+    "autoDocstring.docstringFormat": "numpy",
+    "python.defaultInterpreterPath": "python",
+    "code-runner.saveAllFilesBeforeRun": true,
+    "editor.hover.enabled": true,
+    "editor.inlineSuggest.enabled": true,
+}

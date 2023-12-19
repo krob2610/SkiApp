@@ -1,0 +1,2 @@
+version,device name,recording epoch time,recording time,recording timezone,platform,appVersion,device id,sensors,sampleRateMs
+3,G3212,1702338612285,2023-12-12_23-50-12,Europe/Belgrade,android,1.26.0,4ea9b8e2-f62a-4cf7-b581-3f0c5f364589,Accelerometer|Magnetometer|Location|Annotation|TotalAcceleration|Rules|MagnetometerUncalibrated|AccelerometerUncalibrated,100|100|1000||100||100|100

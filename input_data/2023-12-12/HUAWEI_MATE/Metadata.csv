@@ -1,0 +1,2 @@
+version,device name,recording epoch time,recording time,recording timezone,platform,appVersion,device id,sensors,sampleRateMs
+3,SNE-LX1,1702338741531,2023-12-12_23-52-21,Europe/Warsaw,android,1.26.0,63ad695b-bf60-4f6f-8dc8-19258bf1a096,Accelerometer|Gravity|Gyroscope|Orientation|Magnetometer|Location|Annotation|TotalAcceleration|Rules|MagnetometerUncalibrated|GyroscopeUncalibrated|AccelerometerUncalibrated,100|100|100|100|100|1000||100||100|100|100

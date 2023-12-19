@@ -1,0 +1,2 @@
+version,device name,recording epoch time,recording time,recording timezone,platform,appVersion,device id,sensors,sampleRateMs
+3,LG-M250,1702338694163,2023-12-12_23-51-34,Europe/Warsaw,android,1.26.0,03f99d7a-f5d4-4d95-9af4-80e95a4b720b,Accelerometer|Magnetometer|Location|Annotation|TotalAcceleration|Rules|MagnetometerUncalibrated|AccelerometerUncalibrated,100|100|1000||100||100|100

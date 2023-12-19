@@ -1,0 +1,2 @@
+version,device name,recording epoch time,recording time,recording timezone,platform,appVersion,device id,sensors,sampleRateMs
+3,JSN-L21,1702338673984,2023-12-12_23-51-13,Europe/Warsaw,android,1.26.0,9917e760-9a9a-4e60-9c23-0e53860f7599,Accelerometer|Gravity|Gyroscope|Orientation|Magnetometer|Location|Annotation|TotalAcceleration|Rules|MagnetometerUncalibrated|GyroscopeUncalibrated|AccelerometerUncalibrated,100|100|100|100|100|1000||100||100|100|100

@@ -1,0 +1,2 @@
+version,device name,recording epoch time,recording time,recording timezone,platform,appVersion,device id,sensors,sampleRateMs
+3,Lenovo K53a48,1702338693921,2023-12-12_23-51-33,Europe/Warsaw,android,1.26.0,b7c9cce3-6c0f-435a-9796-6b44246f5955,Accelerometer|Gravity|Gyroscope|Orientation|Magnetometer|Location|Annotation|TotalAcceleration|Rules|MagnetometerUncalibrated|GyroscopeUncalibrated|AccelerometerUncalibrated,100|100|100|100|100|1000||100||100|100|100
