@@ -5,7 +5,15 @@ from pathlib import Path
 
 import pandas as pd
 
-from .device_namespace import DEVICE_MAP, INPUT_PATH, NEW_INPUT, SENSORS
+from .device_namespace import (
+    CAM_OFFSET,
+    DEVICE_MAP,
+    DEVICE_NUMBER,
+    DEVICE_TIME_OFFSET,
+    INPUT_PATH,
+    NEW_INPUT,
+    SENSORS,
+)
 
 logging.basicConfig(level=logging.INFO)
 
@@ -33,7 +41,7 @@ class FileArranger:
         return [file.name for file in path.iterdir() if file.suffix == ".zip"]
 
     def _extract_zip(self, path: str) -> None:
-        """Extract zip file to specific folder
+        """Extract zip file to specific folder, add offset to txt file in that folder
 
         Parameters
         ----------
@@ -63,6 +71,23 @@ class FileArranger:
         file_path = new_date_directory / filename
         if os.stat(file_path).st_size == 0:
             logging.warning(f"The file {filename} is empty")
+
+        # add offset to txt file
+        self.add_offset(device_name, new_date_directory)
+
+    def add_offset(self, device: str, path: Path) -> None:
+        """Add offset to specific device into txt file in miliseconds
+
+        Parameters
+        ----------
+        device : str
+            name of device
+        path : Path
+            path where the offset.txt file should be created
+        """
+        DEVICE_NUMBER[device]
+        with open(path / "offset.txt", "a") as f:
+            f.write(f"{DEVICE_TIME_OFFSET[DEVICE_NUMBER[device]]}\n")
 
     def delete_new_inputs(self) -> None:
         """delate input files from !new_input folder"""

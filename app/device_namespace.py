@@ -10,6 +10,37 @@ DEVICE_MAP = {
     "78b99b8517ac4838aeec69198d9a795f": "HUAWEI_P9_LITE",
 }
 
+DEVICE_NUMBER = {
+    "HUAWEI_Y7": "1",
+    "Sony_Xperia_XA": "2",
+    "HUAWEI_MATE": "3",
+    "LG_K10": "4",
+    "HUAWEI_P9_LITE": "5",
+    "Sony_Xperia_M5": "6",
+    "OPPO_AX7": "7",
+    "LENOVO_K6_NOTE": "8",
+    "HONOR_8X": "9",
+}
+
+
+# negative number -> clock is faster than real time
+# positive number -> clock is slower than real time
+# time given in milliseconds
+# time server: time.cloudflare.com
+
+DEVICE_TIME_OFFSET = {
+    "1": -468,
+    "2": -3570,
+    "3": -1929,
+    "4": -37,
+    "5": 209,
+    "6": -3050,
+    "7": 663,
+    "8": -3343,
+    "9": -976,
+}
+CAM_OFFSET = 680
+# ? need to be modified every time?
 
 INPUT_PATH = "input_data"
 NEW_INPUT = "!new_input"
