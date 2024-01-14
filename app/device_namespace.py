@@ -22,29 +22,9 @@ DEVICE_NUMBER = {
     "HONOR_8X": "9",
 }
 
-
-# negative number -> clock is faster than real time
-# positive number -> clock is slower than real time
-# time given in milliseconds
-# time server: time.cloudflare.com
-
-DEVICE_TIME_OFFSET = {
-    "1": -468,
-    "2": -3570,
-    "3": -1929,
-    "4": -37,
-    "5": 209,
-    "6": -3050,
-    "7": 663,
-    "8": -3343,
-    "9": -976,
-}
-CAM_OFFSET = 680
-# ? need to be modified every time?
-
 INPUT_PATH = "input_data"
 NEW_INPUT = "!new_input"
-
+DATA_PATH = "data"
 SENSORS = [
     "Metadata",
     "Accelerometer",

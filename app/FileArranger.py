@@ -5,23 +5,18 @@ from pathlib import Path
 
 import pandas as pd
 
-from .device_namespace import (
-    CAM_OFFSET,
-    DEVICE_MAP,
-    DEVICE_NUMBER,
-    DEVICE_TIME_OFFSET,
-    INPUT_PATH,
-    NEW_INPUT,
-    SENSORS,
-)
+from .device_namespace import DEVICE_MAP, DEVICE_NUMBER, INPUT_PATH, NEW_INPUT, SENSORS
 
 logging.basicConfig(level=logging.INFO)
 
 
 class FileArranger:
-    def __init__(self):
+    def __init__(self, device_offset: dict[str, int], camera_offset: int) -> None:
+        self.device_offset = device_offset
+        self.camera_offset = camera_offset
         self.dates = []
         self.dates_dirs = []
+        self._unpack_folder()
         self._save_data_to_coresponding_file()
         self.check_files_saved()
 
@@ -30,6 +25,20 @@ class FileArranger:
 
         for name in names:
             self._extract_zip(name)
+
+    def _unpack_folder(self) -> None:
+        zip_path_folder = Path(INPUT_PATH, NEW_INPUT)
+        zip_path = next(zip_path_folder.glob("*.zip"), None)
+        if zip_path and zipfile.is_zipfile(zip_path):
+            with zipfile.ZipFile(zip_path, "r") as zip_ref:
+                zip_ref.extractall(zip_path_folder)
+            os.remove(zip_path)
+        else:
+            print(
+                f"No zip file found in {zip_path_folder}"
+                if not zip_path
+                else f"{zip_path} is not a zip file."
+            )
 
     def _get_folder_names(self) -> list[str]:
         """Get names of folders in input_data/!new_input
@@ -113,7 +122,8 @@ class FileArranger:
         """
         DEVICE_NUMBER[device]
         with open(path / "offset.txt", "w") as f:
-            f.write(f"{DEVICE_TIME_OFFSET[DEVICE_NUMBER[device]]}\n")
+            f.write(f"{self.device_offset[DEVICE_NUMBER[device]]}\n")
+            f.write(f"{self.camera_offset}\n")
 
     def check_files_saved(self) -> None:
         """Check if all files were saved to specific folder"""
