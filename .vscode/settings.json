@@ -36,4 +36,10 @@
     "code-runner.saveAllFilesBeforeRun": true,
     "editor.hover.enabled": true,
     "editor.inlineSuggest.enabled": true,
+    "files.exclude": {
+        "**/.git": false,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true
+    }
 }

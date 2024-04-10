@@ -12,3 +12,4 @@ __pycache__/
 *$py.class
 *.pyc
 4.ipynb
+.vscode/settings.json
