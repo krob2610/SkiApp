@@ -1,5 +1,6 @@
 import logging
 import os
+import shutil
 import zipfile
 from pathlib import Path
 
@@ -11,14 +12,15 @@ logging.basicConfig(level=logging.INFO)
 
 
 class FileArranger:
-    def __init__(self, device_offset: dict[str, int], camera_offset: int) -> None:
+    def __init__(self, device_offset: dict[str, int], delete: bool = False) -> None:
         self.device_offset = device_offset
-        self.camera_offset = camera_offset
         self.dates = []
         self.dates_dirs = []
-        self._unpack_folder()
+        # self._unpack_folder()
         self._save_data_to_coresponding_file()
         self.check_files_saved()
+        if delete:
+            self.delete_new_inputs()
 
     def _save_data_to_coresponding_file(self) -> None:
         names = self._get_folder_names()
@@ -71,7 +73,7 @@ class FileArranger:
         new_date_directory = Path(INPUT_PATH) / date / device_name
 
         new_date_directory.mkdir(parents=True, exist_ok=True)
-
+        print(f"Extracting {Path(INPUT_PATH) / Path(NEW_INPUT) / path}")
         with zipfile.ZipFile(Path(INPUT_PATH) / Path(NEW_INPUT) / path, "r") as zip_ref:
             # Extract all the files into the new folder
             # Log the names of all the files in the zip file
@@ -123,7 +125,6 @@ class FileArranger:
         DEVICE_NUMBER[device]
         with open(path / "offset.txt", "w") as f:
             f.write(f"{self.device_offset[DEVICE_NUMBER[device]]}\n")
-            f.write(f"{self.camera_offset}\n")
 
     def check_files_saved(self) -> None:
         """Check if all files were saved to specific folder"""
@@ -147,7 +148,10 @@ class FileArranger:
                     print(f"{device}: ❌")
 
     def delete_new_inputs(self) -> None:
-        """delate input files from !new_input folder"""
+        """delete input files from !new_input folder"""
         path = Path(INPUT_PATH, NEW_INPUT)
         for file in path.iterdir():
-            os.remove(file)
+            if file.is_file():
+                os.remove(file)
+            elif file.is_dir():
+                shutil.rmtree(file)

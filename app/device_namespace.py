@@ -38,3 +38,30 @@ SENSORS = [
     "MagnetometerUncalibrated",
     "AccelerometerUncalibrated",
 ]
+
+SNESORS_CSV = [
+    "Accelerometer",
+    "AccelerometerUncalibrated",
+    "Gravity",
+    "Gyroscope",
+    "GyroscopeUncalibrated",
+    "Location",
+    "Magnetometer",
+    "MagnetometerUncalibrated",
+    "Orientation",
+    "TotalAcceleration",
+]
+
+# sensors that will be included in final DataFrame
+FINAL_DF_SENSORS = [
+    "Accelerometer",
+    "Gravity",
+    "Gyroscope",
+    "GyroscopeUncalibrated",
+    "Magnetometer",
+    "MagnetometerUncalibrated",
+    "Orientation",
+    "TotalAcceleration",
+]
+
+TIME = "time"

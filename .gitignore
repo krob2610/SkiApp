@@ -2,4 +2,8 @@
 /cpython/
 __pycache__/
 data/
-input/data/
+input_data/
+camera_input/
+*.pyc
+to_sort/
+input_data/!new_input
