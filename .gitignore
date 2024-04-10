@@ -7,3 +7,8 @@ camera_input/
 *.pyc
 to_sort/
 input_data/!new_input
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+4.ipynb
