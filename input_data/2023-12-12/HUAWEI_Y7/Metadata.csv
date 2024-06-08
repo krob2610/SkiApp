@@ -1,2 +1,0 @@
-version,device name,recording epoch time,recording time,recording timezone,platform,appVersion,device id,sensors,sampleRateMs
-3,DUB-LX1,1702338649178,2023-12-12_23-50-49,Europe/Warsaw,android,1.26.0,e2480295-bb6d-4d5b-b73c-c2bebd958f31,Accelerometer|Gravity|Orientation|Magnetometer|Location|Annotation|TotalAcceleration|Rules|MagnetometerUncalibrated|AccelerometerUncalibrated,100|100|100|100|1000||100||100|100

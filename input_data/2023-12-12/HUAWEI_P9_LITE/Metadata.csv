@@ -1,2 +1,0 @@
-version,device name,recording epoch time,recording time,recording timezone,platform,appVersion,device id,sensors,sampleRateMs
-3,HUAWEI VNS-L31,1702338741440,2023-12-12_23-52-21,Europe/Warsaw,android,1.26.0,78b99b85-17ac-4838-aeec-69198d9a795f,Accelerometer|Gravity|Orientation|Magnetometer|Location|Annotation|TotalAcceleration|Rules|MagnetometerUncalibrated|AccelerometerUncalibrated,100|100|100|100|1000||100||100|100
