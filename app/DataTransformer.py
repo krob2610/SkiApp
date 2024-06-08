@@ -119,7 +119,7 @@ class DataTransformer:
 
         prepared_data = self._cut_dataframes_inside_device(device_dataframes)
         filled_data = self._fill_missing_times(prepared_data)
-        final_df = self._prepare_final_df(filled_data)
+        final_df = self.prepare_final_df(filled_data)
 
         # Add columns for missing sensors and fill them with None
         for sensor in missing_sensors:
@@ -171,12 +171,17 @@ class DataTransformer:
                 df = pd.concat([df, missing_df])
                 df.sort_values(TIME, inplace=True)
                 df.set_index(TIME, inplace=True)
-                df = df.interpolate(method=TIME)
+                df = (
+                    df.interpolate(method=TIME)
+                    .fillna(method="bfill")
+                    .fillna(method="ffill")
+                )
                 device_dataframes_copy[key] = df.reset_index()
 
         return device_dataframes_copy
 
-    def _prepare_final_df(self, device_dataframes: dict) -> pd.DataFrame:
+    @staticmethod
+    def prepare_final_df(device_dataframes: dict) -> pd.DataFrame:
         """Prepare final dataframe that merges all dataframes"""
         dfs = []
         device_dataframes_copy = copy.deepcopy(device_dataframes)

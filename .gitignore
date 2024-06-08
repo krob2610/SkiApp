@@ -13,3 +13,9 @@ __pycache__/
 *.pyc
 4.ipynb
 .vscode/settings.json
+*.png
+*.mp4
+*.avi
+*.csv
+*.xlsx
+*.pptx
