@@ -17,12 +17,14 @@ class DataLoader:
     def load_transform_data(self):
         res = pd.read_csv(self.data_path)
         for col in res.columns:
-            if col != TIME:
+            if col not in [TIME, "Curve"]:
                 res[col] = res[col].apply(
                     lambda x: literal_eval(x) if isinstance(x, str) else x
                 )
-            else:
+            elif col == TIME:
                 res[col] = pd.to_datetime(res[col])
+            elif col == "Curve":
+                res[col] = res[col].apply(lambda x: x if x in ["L", "R"] else False)
         res.set_index(TIME, inplace=True)
         # save data for later use
         self.data = res
