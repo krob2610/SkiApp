@@ -24,7 +24,11 @@ def generate_video_from_df(df, output_filename, fps=10, width=640, height=480):
     video_writer = cv2.VideoWriter(output_filename, fourcc, fps, (width, height))
 
     for index, row in df.iterrows():
-        yaw, pitch, roll = row["yaw"], row["pitch"], row["roll"]
+        yaw, pitch, roll = (
+            row["yaw"] * -1,
+            row["pitch"] * -1,  # ! phone put down to table/back
+            row["roll"],
+        )  # rotate pitch
         draw(yaw, pitch, roll)
         pygame.display.flip()
 
@@ -35,7 +39,10 @@ def generate_video_from_df(df, output_filename, fps=10, width=640, height=480):
 
     video_writer.release()
     print(f"Video saved as {output_filename}")
+
+    # Properly close Pygame
     pygame.quit()
+    cv2.destroyAllWindows()
 
 
 def resizewin(width, height):
@@ -70,48 +77,90 @@ def draw(yaw, pitch, roll):
     drawText((-2.6, 1.6, 2), "Module to visualize Euler angles data", 16)
     drawText((-2.6, -2, 2), "Generating video, please wait...", 16)
 
-    drawText((-2.6, -1.8, 2), "Yaw: %f, Pitch: %f, Roll: %f" % (yaw, pitch, roll), 16)
-    glRotatef(-roll, 0.00, 0.00, 1.00)
-    glRotatef(pitch, 1.00, 0.00, 0.00)
-    glRotatef(yaw, 0.00, 1.00, 0.00)
+    drawText(
+        (-2.6, -1.8, 2),
+        "Yaw: %.2f rad, Pitch: %.2f rad, Roll: %.2f rad" % (yaw, pitch, roll),
+        16,
+    )
+    glRotatef(math.degrees(-roll), 0.00, 0.00, 1.00)
+    glRotatef(math.degrees(pitch), 1.00, 0.00, 0.00)
+    glRotatef(math.degrees(yaw), 0.00, 1.00, 0.00)
 
     glBegin(GL_QUADS)
-    glColor3f(0.0, 1.0, 0.0)
-    glVertex3f(1.0, 0.2, -1.0)
-    glVertex3f(-1.0, 0.2, -1.0)
-    glVertex3f(-1.0, 0.2, 1.0)
-    glVertex3f(1.0, 0.2, 1.0)
+    glColor3f(0.0, 1.0, 0.0)  # * green
+    glVertex3f(1.0, 0.2, -2.0)
+    glVertex3f(-1.0, 0.2, -2.0)
+    glVertex3f(-1.0, 0.2, 2.0)
+    glVertex3f(1.0, 0.2, 2.0)
 
-    glColor3f(1.0, 0.5, 0.0)
-    glVertex3f(1.0, -0.2, 1.0)
-    glVertex3f(-1.0, -0.2, 1.0)
-    glVertex3f(-1.0, -0.2, -1.0)
-    glVertex3f(1.0, -0.2, -1.0)
+    glColor3f(1.0, 0.5, 0.0)  # * med blue - main ()
+    glVertex3f(1.0, -0.2, 2.0)
+    glVertex3f(-1.0, -0.2, 2.0)
+    glVertex3f(-1.0, -0.2, -2.0)
+    glVertex3f(1.0, -0.2, -2.0)
 
-    glColor3f(1.0, 0.0, 0.0)
-    glVertex3f(1.0, 0.2, 1.0)
-    glVertex3f(-1.0, 0.2, 1.0)
-    glVertex3f(-1.0, -0.2, 1.0)
-    glVertex3f(1.0, -0.2, 1.0)
+    glColor3f(1.0, 0.0, 0.0)  # * dark blue
+    glVertex3f(1.0, 0.2, 2.0)
+    glVertex3f(-1.0, 0.2, 2.0)
+    glVertex3f(-1.0, -0.2, 2.0)
+    glVertex3f(1.0, -0.2, 2.0)
 
-    glColor3f(1.0, 1.0, 0.0)
-    glVertex3f(1.0, -0.2, -1.0)
-    glVertex3f(-1.0, -0.2, -1.0)
-    glVertex3f(-1.0, 0.2, -1.0)
-    glVertex3f(1.0, 0.2, -1.0)
+    glColor3f(1.0, 1.0, 0.0)  # * light blue
+    glVertex3f(1.0, -0.2, -2.0)
+    glVertex3f(-1.0, -0.2, -2.0)
+    glVertex3f(-1.0, 0.2, -2.0)
+    glVertex3f(1.0, 0.2, -2.0)
 
-    glColor3f(0.0, 0.0, 1.0)
-    glVertex3f(-1.0, 0.2, 1.0)
-    glVertex3f(-1.0, 0.2, -1.0)
-    glVertex3f(-1.0, -0.2, -1.0)
-    glVertex3f(-1.0, -0.2, 1.0)
+    glColor3f(0.0, 0.0, 1.0)  # * red
+    glVertex3f(-1.0, 0.2, 2.0)
+    glVertex3f(-1.0, 0.2, -2.0)
+    glVertex3f(-1.0, -0.2, -2.0)
+    glVertex3f(-1.0, -0.2, 2.0)
 
-    glColor3f(1.0, 0.0, 1.0)
-    glVertex3f(1.0, 0.2, -1.0)
-    glVertex3f(1.0, 0.2, 1.0)
-    glVertex3f(1.0, -0.2, 1.0)
-    glVertex3f(1.0, -0.2, -1.0)
+    glColor3f(1.0, 0.0, 1.0)  # * purple
+    glVertex3f(1.0, 0.2, -2.0)
+    glVertex3f(1.0, 0.2, 2.0)
+    glVertex3f(1.0, -0.2, 2.0)
+    glVertex3f(1.0, -0.2, -2.0)
     glEnd()
+
+    # glBegin(GL_QUADS)
+    # glColor3f(0.0, 1.0, 0.0)
+    # glVertex3f(1.0, 0.2, -1.0)
+    # glVertex3f(-1.0, 0.2, -1.0)
+    # glVertex3f(-1.0, 0.2, 1.0)
+    # glVertex3f(1.0, 0.2, 1.0)
+
+    # glColor3f(1.0, 0.5, 0.0)
+    # glVertex3f(1.0, -0.2, 1.0)
+    # glVertex3f(-1.0, -0.2, 1.0)
+    # glVertex3f(-1.0, -0.2, -1.0)
+    # glVertex3f(1.0, -0.2, -1.0)
+
+    # glColor3f(1.0, 0.0, 0.0)
+    # glVertex3f(1.0, 0.2, 1.0)
+    # glVertex3f(-1.0, 0.2, 1.0)
+    # glVertex3f(-1.0, -0.2, 1.0)
+    # glVertex3f(1.0, -0.2, 1.0)
+
+    # glColor3f(1.0, 1.0, 0.0)
+    # glVertex3f(1.0, -0.2, -1.0)
+    # glVertex3f(-1.0, -0.2, -1.0)
+    # glVertex3f(-1.0, 0.2, -1.0)
+    # glVertex3f(1.0, 0.2, -1.0)
+
+    # glColor3f(0.0, 0.0, 1.0)
+    # glVertex3f(-1.0, 0.2, 1.0)
+    # glVertex3f(-1.0, 0.2, -1.0)
+    # glVertex3f(-1.0, -0.2, -1.0)
+    # glVertex3f(-1.0, -0.2, 1.0)
+
+    # glColor3f(1.0, 0.0, 1.0)
+    # glVertex3f(1.0, 0.2, -1.0)
+    # glVertex3f(1.0, 0.2, 1.0)
+    # glVertex3f(1.0, -0.2, 1.0)
+    # glVertex3f(1.0, -0.2, -1.0)
+    # glEnd()
 
 
 def drawText(position, textString, size):
@@ -138,15 +187,15 @@ def capture_frame(width, height):
 
 # Example usage
 if __name__ == "__main__":
-    # Create a sample DataFrame with yaw, pitch, roll data
+    # Create a sample DataFrame with yaw, pitch, roll data in radians
     data = {
         "time": pd.date_range(start="1/1/2020", periods=100, freq="100ms"),
-        "yaw": np.random.uniform(-180, 180, 100),
-        "pitch": np.random.uniform(-90, 90, 100),
-        "roll": np.random.uniform(-180, 180, 100),
+        "yaw": np.random.uniform(-math.pi, math.pi, 100),
+        "pitch": np.random.uniform(-math.pi / 2, math.pi / 2, 100),
+        "roll": np.random.uniform(-math.pi, math.pi, 100),
     }
     df = pd.DataFrame(data)
     df.set_index("time", inplace=True)
 
     # Generate video from the DataFrame
-    generate_video_from_df(df, "oooutput_video.avi", fps=10)
+    generate_video_from_df(df, "output_video.avi", fps=10)
